@@ -2,334 +2,312 @@
 <html lang="pt-BR" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Barbearia Bonfá | Cortes, Barboterapia e Limpeza de Pele</title>
-    <meta
-        name="description"
-        content="Agende seu horário na Barbearia Bonfá. Especialistas em cortes clássicos, barba na navalha, barboterapia com vapor de ozônio e limpeza de pele profunda."
-    />
-    <meta
-        name="keywords"
-        content="barbearia, corte masculino, barba, barboterapia, limpeza de pele masculina, vapor de ozônio, barbeiro, agendamento"
-    />
+    <meta name="description" content="Agende seu horário na Barbearia Bonfá. Especialistas em cortes clássicos, barba na navalha, barboterapia com vapor de ozônio e limpeza de pele profunda." />
+    <meta name="keywords" content="barbearia, corte masculino, barba, barboterapia, limpeza de pele masculina, vapor de ozônio, barbeiro, agendamento" />
     <meta name="author" content="Barbearia Bonfá" />
     <meta name="robots" content="index, follow" />
 
     <meta property="og:type" content="website" />
-    <meta
-        property="og:title"
-        content="Barbearia Bonfá - Estilo e Cuidado Completo"
-    />
-    <meta
-        property="og:description"
-        content="Confira nossos serviços de barboterapia e limpeza de pele. Agende agora!"
-    />
-    <meta
-        property="og:image"
-        content="./image/logo.jpeg"
-    />
+    <meta property="og:title" content="Barbearia Bonfá - Estilo e Cuidado Completo" />
+    <meta property="og:description" content="Confira nossos serviços de barboterapia e limpeza de pele. Agende agora!" />
+    <meta property="og:image" content="./image/logo.jpeg" />
 
-    <link
-        rel="icon"
-        type="image/jpeg"
-        href="./image/logo.jpeg"
-    />
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap"
-        rel="stylesheet"
-    />
-
+    <link rel="icon" type="image/jpeg" href="./image/logo.jpeg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="./js/firebase-init.js"></script>
 </head>
-    <body>
+<body>
     <main class="main-card">
-        <button
-        class="theme-toggle"
-        onclick="toggleTheme()"
-        aria-label="Alternar Tema"
-    >
-        <i class="fas fa-moon"></i>
+
+        <!-- Botão de tema -->
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
+            <i class="fas fa-moon"></i>
         </button>
 
-    <header class="profile-section">
-        <img
-            src="./image/logo.jpeg"
-            alt="Logo Barbearia Bonfá"
-            class="profile-img"
-        />
-        <h1>Barbearia Bonfá</h1>
-        <h2>Estilo Clássico & Cuidado Moderno</h2>
-        <p class="bio-text">
-            Aqui seu estilo é o nosso compromisso!. Especialistas em barba, cabelo e
-            tratamentos faciais masculinos.
-        </p>
-    </header>
+        <!-- Perfil -->
+        <header class="profile-section">
+            <img src="./image/logo.jpeg" alt="Logo Barbearia Bonfá" class="profile-img" />
+            <h1>Barbearia Bonfá</h1>
+            <h2>Estilo Clássico &amp; Cuidado Moderno</h2>
+            <p class="bio-text">
+                Aqui seu estilo é o nosso compromisso! Especialistas em barba, cabelo e tratamentos faciais masculinos.
+            </p>
+        </header>
 
-    <section class="action-grid">
-        <a href="#agendamento" class="btn-action"
-        ><i class="fab fa-whatsapp"></i> 
-        <span>Agendar</span>
-        </a
-        >
-        <a href="https://maps.app.goo.gl/GGZDU1uezWRV2D5B9" class="btn-action"
-        ><i class="fas fa-location-dot"></i>
-        <span>Chegar</span>
-        </a
-        >
-    </section>
+        <!-- Botões de ação -->
+        <section class="action-grid">
+            <a href="#agendamento" class="btn-action">
+                <i class="fab fa-whatsapp"></i>
+                <span>Agendar</span>
+            </a>
+            <a href="https://maps.app.goo.gl/GGZDU1uezWRV2D5B9" class="btn-action" target="_blank" rel="noopener">
+                <i class="fas fa-location-dot"></i>
+                <span>Chegar</span>
+            </a>
+        </section>
 
-    <section class="hours-section">
-        <div class="hours-title">
-        <i class="far fa-clock"></i> Horário de Atendimento
-        </div>
-        <div class="hours-row">
-        <span>Segunda a Sexta</span
-        ><span>18:00 - 00:00 <span class="status-open">ABERTO</span></span>
-        </div>
-        <div class="hours-row">
-        <span>Sábado</span>
-        <span>08:00 - 12:00</span>
-        </div>
-    </section>
+        <!-- Horários -->
+        <section class="hours-section">
+            <div class="hours-title">
+                <i class="far fa-clock"></i> Horário de Atendimento
+            </div>
+            <div class="hours-row">
+                <span>Segunda a Sexta</span>
+                <span>18:00 – 00:00 <span class="status-open">ABERTO</span></span>
+            </div>
+            <div class="hours-row">
+                <span>Sábado</span>
+                <span>08:00 – 12:00</span>
+            </div>
+            <div class="hours-row">
+                <span>Domingo</span>
+                <span>Fechado</span>
+            </div>
+        </section>
 
-    <div class="section-header">
-        <h3>Galeria Bonfá</h3>
-    </div>
-    <div class="carousel-container">
-        <div class="nav-btn nav-left" onclick="scrollGallery(-1)">
-        <i class="fas fa-chevron-left"></i>
-        </div>
-        <div class="gallery-track" id="galleryTrack">
-
-        <div class="gallery-item">
-            <img
-            src="./image/barba.jpeg"
-            alt="Barba"
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-                src="./image/corte barba.jpeg"
-                alt=""
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-            src="./image/corte com pigmetação.jpeg"
-            alt=""
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-            src="./image/corte.jpeg"
-            alt=""
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-            src="./image/limpeza-de-pele.jpeg"
-            alt=""
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-            src="./image/pele.jpeg"
-            alt=""
-            />
-        </div>
-
-        <div class="gallery-item">
-            <img
-            src="./image/barboterapia.jpeg"
-            alt=""
-            />
-        </div>
-
-        </div>
-        <div class="nav-btn nav-right" onclick="scrollGallery(1)">
-        <i class="fas fa-chevron-right"></i>
-        </div>
-    </div>
-
+        <!-- Galeria -->
         <div class="section-header">
-        <h3>Tabela de Preços</h3>
-    </div>
-    <div class="carousel-container">
-        <div class="nav-btn nav-left" onclick="scrollPrices(-1)">
-        <i class="fas fa-chevron-left"></i>
+            <h3>Galeria Bonfá</h3>
         </div>
-        <div class="price-track" id="priceTrack">
-
-        <div class="price-card">
-            <span class="service-name">Corte</span
-            ><span class="service-price">R$ 35,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Barba </span
-            ><span class="service-price">R$ 25,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Sobrancelha</span
-            ><span class="service-price">R$ 15,00</span>
+        <div class="carousel-container">
+            <div class="nav-btn nav-left" onclick="scrollGallery(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="gallery-track" id="galleryTrack">
+                <div class="gallery-item"><img src="./image/barba.jpeg" alt="Barba" /></div>
+                <div class="gallery-item"><img src="./image/corte barba.jpeg" alt="Corte e Barba" /></div>
+                <div class="gallery-item"><img src="./image/corte com pigmetação.jpeg" alt="Corte com Pigmentação" /></div>
+                <div class="gallery-item"><img src="./image/corte.jpeg" alt="Corte" /></div>
+                <div class="gallery-item"><img src="./image/limpeza-de-pele.jpeg" alt="Limpeza de Pele" /></div>
+                <div class="gallery-item"><img src="./image/pele.jpeg" alt="Cuidado de Pele" /></div>
+                <div class="gallery-item"><img src="./image/barboterapia.jpeg" alt="Barboterapia" /></div>
+            </div>
+            <div class="nav-btn nav-right" onclick="scrollGallery(1)">
+                <i class="fas fa-chevron-right"></i>
+            </div>
         </div>
 
-        <div class="price-card">
-            <span class="service-name">Pigmentação</span
-            ><span class="service-price">R$ 20,00</span>
+        <!-- Tabela de Preços -->
+        <div class="section-header">
+            <h3>Tabela de Preços</h3>
+        </div>
+        <div class="carousel-container">
+            <div class="nav-btn nav-left" onclick="scrollPrices(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="price-track" id="priceTrack">
+                <div class="price-card"><span class="service-name">Corte</span><span class="service-price">R$ 35</span></div>
+                <div class="price-card"><span class="service-name">Barba</span><span class="service-price">R$ 25</span></div>
+                <div class="price-card"><span class="service-name">Sobrancelha</span><span class="service-price">R$ 15</span></div>
+                <div class="price-card"><span class="service-name">Pigmentação</span><span class="service-price">R$ 20</span></div>
+                <div class="price-card"><span class="service-name">Corte + Barba</span><span class="service-price">R$ 45</span></div>
+                <div class="price-card"><span class="service-name">Corte + Barba + Sobrancelha</span><span class="service-price">R$ 55</span></div>
+                <div class="price-card"><span class="service-name">Barba + Pigmentação</span><span class="service-price">R$ 35</span></div>
+                <div class="price-card"><span class="service-name">Combo Completo</span><span class="service-price">R$ 65</span></div>
+                <div class="price-card"><span class="service-name">Barboterapia</span><span class="service-price">R$ 45</span></div>
+                <div class="price-card"><span class="service-name">Depilação Orelhas</span><span class="service-price">R$ 20</span></div>
+                <div class="price-card"><span class="service-name">Depilação Nariz</span><span class="service-price">R$ 20</span></div>
+                <div class="price-card"><span class="service-name">Remoção Cravos</span><span class="service-price">R$ 10</span></div>
+            </div>
+            <div class="nav-btn nav-right" onclick="scrollPrices(1)">
+                <i class="fas fa-chevron-right"></i>
+            </div>
         </div>
 
-        <div class="price-card">
-            <span class="service-name">Corte + Barba</span
-            ><span class="service-price">R$ 45,00</span>
+        <!-- Barboterapia & Spa -->
+        <div class="section-header" id="spa-facial">
+            <h3>Barboterapia &amp; Spa</h3>
         </div>
-
-        <div class="price-card">
-            <span class="service-name">Corte + Barba + Sobrancelha</span
-            ><span class="service-price">R$ 55,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Barba + Pigmentação</span
-            ><span class="service-price">R$ 35,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Corte + Barba + Pigmentação + Sobrancelha</span
-            ><span class="service-price">R$ 65,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Barboterapia</span
-            ><span class="service-price">R$ 45,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Depilação orelhas</span
-            ><span class="service-price">R$ 20,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Depilação Nariz</span
-            ><span class="service-price">R$ 20,00</span>
-        </div>
-
-        <div class="price-card">
-            <span class="service-name">Remoção de cravos do nariz</span
-            ><span class="service-price">R$ 10,00</span>
-        </div>
-
-        </div>
-        <div class="nav-btn nav-right" onclick="scrollPrices(1)">
-        <i class="fas fa-chevron-right"></i>
-        </div>
-    </div>
-
-    <div class="section-header" id="spa-facial">
-        <h3>Barboterapia & Spa</h3>
-    </div>
-
-      <section class="spa-section">
-        <p class="spa-description">
-        Eleve sua experiência. Nossa barboterapia utiliza vapor de ozônio para
-        abrir os poros, seguida de uma limpeza de pele profunda para renovar
-        seu rosto.
-        </p>
-
-        <div class="video-grid">
-        <div class="video-container">
-            <video class="vertical-video" autoplay muted loop playsinline>
-            <source src="./video/barboterapia.mp4" type="video/mp4" />
-            </video>
-            <span class="video-label">Vapor de Ozônio</span>
-        </div>
-        <div class="video-container">
-            <video class="vertical-video" autoplay muted loop playsinline>
-            <source src="./video/limpeza-de-pele.mp4" type="video/mp4" />
-            </video>
-            <span class="video-label">Limpeza Profunda</span>
-        </div>
-        </div>
-        <a href="https://wa.me/5532998033153" class="btn-spa-cta" onclick="selectSpaService()">
-        <i class="fas fa-spa"></i> Quero Agendar Spa
-        </a>
-    </section>
-
-    <div class="section-header" id="agendamento">
-        <h3>Agendamento</h3>
-    </div>
-    <form class="schedule-form" onsubmit="event.preventDefault(); agendarWhatsApp();">
-            <label class="form-label" for="clientName">Seu Nome</label>
-            <input type="text" id="clientName" class="form-input" placeholder="Digite seu nome" required>
-            
-            <label class="form-label" for="serviceSelect">Serviço Desejado</label>
-            <select id="serviceSelect" class="form-select" required>
-                <option value="" disabled selected>Selecione o serviço...</option>
-                <option value="Corte">Corte</option>
-                <option value="Barba">Barba</option>
-                <option value="Sobrancelha">Sobrancelha</option>
-                <option value="Pigmentação">Pigmentação</option>
-                <option value="Corte e barba">Corte e barba</option>
-                <option value="Corte e barba e Sobrancelha">Corte e barba e Sobrancelha</option>
-                <option value="barba e pigmentação">barba e pigmentação</option>
-                <option value="Corte e barba e Sobrancelha e pigmentação">Corte e Barba e Sobrancelha e Pigmentação</option>
-                <option value="Barboterapia">Barboterapia</option>
-                <option value="Depilação de Nariz">Depilação de Nariz</option>
-                <option value="Depilação de Orelhas">Depilação de Orelhas</option>
-                <option value="Limpeza de pele">Limpeza de Pele</option>
-                <option value="remoção de cravos">Remoção de cravos</option>
-                
-            </select>
-            
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div>
-                    <label class="form-label" for="dateSelect">Data</label>
-                    <input type="date" id="dateSelect" class="form-input" required onchange="updateHours()">
+        <section class="spa-section">
+            <p class="spa-description">
+                Eleve sua experiência. Nossa barboterapia utiliza vapor de ozônio para abrir os poros, seguida de uma limpeza de pele profunda para renovar seu rosto.
+            </p>
+            <div class="video-grid">
+                <div class="video-container">
+                    <video class="vertical-video" autoplay muted loop playsinline>
+                        <source src="./video/barboterapia.mp4" type="video/mp4" />
+                    </video>
+                    <span class="video-label">Vapor de Ozônio</span>
                 </div>
-                <div>
-                    <label class="form-label" for="timeSelect">Horário</label>
-                    <select id="timeSelect" class="form-select" required>
-                        <option value="">Selecione a data...</option>
-                    </select>
+                <div class="video-container">
+                    <video class="vertical-video" autoplay muted loop playsinline>
+                        <source src="./video/limpeza-de-pele.mp4" type="video/mp4" />
+                    </video>
+                    <span class="video-label">Limpeza Profunda</span>
                 </div>
             </div>
-            <button type="submit" class="btn-schedule"><i class="fab fa-whatsapp"></i> Solicitar Horário</button>
+            <a href="https://wa.me/5532998033153" class="btn-spa-cta" target="_blank" rel="noopener">
+                <i class="fas fa-spa"></i> Quero Agendar Spa
+            </a>
+        </section>
+
+        <!-- ====== FORMULÁRIO DE AGENDAMENTO ====== -->
+        <div class="section-header" id="agendamento">
+            <h3>Agendamento</h3>
+        </div>
+
+        <form class="schedule-form" onsubmit="event.preventDefault(); abrirModalConfirmacao();">
+
+            <!-- Nome -->
+            <div class="form-group">
+                <label class="form-label" for="clientName">
+                    <i class="fas fa-user"></i> Seu Nome
+                </label>
+                <input type="text" id="clientName" class="form-input"
+                    placeholder="Digite seu nome completo" required autocomplete="given-name">
+            </div>
+
+            <!-- Serviços chips -->
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-scissors"></i> Serviço Desejado
+                </label>
+                <div class="service-grid" id="serviceGrid"></div>
+                <input type="hidden" id="selectedService" required>
+                <input type="hidden" id="selectedPrice" value="">
+            </div>
+
+            <!-- Badge preço selecionado -->
+            <div class="selected-price-badge" id="priceBadge">
+                <i class="fas fa-tag"></i>
+                <span id="badgeServiceName">—</span>
+                <span class="badge-price" id="badgePrice">R$ 0</span>
+            </div>
+
+            <!-- Data -->
+            <div class="form-group">
+                <label class="form-label" for="dateSelect">
+                    <i class="fas fa-calendar-days"></i> Escolha a Data
+                </label>
+                <input type="date" id="dateSelect" class="form-input" required onchange="onDateChange()">
+            </div>
+
+            <!-- Grade de Horários -->
+            <div class="form-group" id="timeSection" style="display:none;">
+                <label class="form-label">
+                    <i class="fas fa-clock"></i> Escolha o Horário
+                </label>
+
+                <!-- Legenda -->
+                <div class="time-legend">
+                    <span class="legend-item"><span class="legend-dot dot-free"></span> Disponível</span>
+                    <span class="legend-item"><span class="legend-dot dot-booked"></span> Ocupado</span>
+                    <span class="legend-item"><span class="legend-dot dot-selected"></span> Selecionado</span>
+                </div>
+
+                <!-- Spinner de carregamento -->
+                <div class="time-loading" id="timeLoading">
+                    <i class="fas fa-circle-notch fa-spin"></i> Carregando horários…
+                </div>
+
+                <!-- Grade de slots -->
+                <div class="time-grid" id="timeGrid"></div>
+
+                <!-- Aviso domingo -->
+                <div class="time-closed" id="timeClosed" style="display:none;">
+                    <i class="fas fa-lock"></i>
+                    <span>Fechado aos domingos. Escolha outro dia!</span>
+                </div>
+
+                <input type="hidden" id="selectedTime" required>
+            </div>
+
+            <!-- Botão -->
+            <button type="submit" class="btn-schedule" id="btnSchedule" disabled>
+                <i class="fab fa-whatsapp"></i> Confirmar Agendamento
+            </button>
         </form>
 
-    <a href="https://wa.me/5532998033153" class="cta-box-final">
-        <h2 class="cta-title">Visual de Respeito?</h2>
-        <p class="cta-sub">Vem pra Bonfá. Qualidade que você merece.</p>
-        <div class="cta-btn-inner">Chamar no WhatsApp</div>
-    </a>
 
-    <footer class="footer">
-        <div class="footer-icons">
-        <a href="https://www.instagram.com/barbeariabonfa/" aria-label="Instagram" target="_blank"
-            ><i class="fab fa-instagram"></i
-        ></a>
-        <a href="https://maps.app.goo.gl/GGZDU1uezWRV2D5B9" aria-label="Localização"
-            ><i class="fas fa-map-marker-alt"></i
-        ></a>
-        </div>
-        <p>© 2026 Barbearia Bonfá.</p>
-    </footer>
+
+        <!-- CTA Final -->
+        <a href="https://wa.me/5532998033153" class="cta-box-final" target="_blank" rel="noopener">
+            <h2 class="cta-title">Visual de Respeito?</h2>
+            <p class="cta-sub">Vem pra Bonfá. Qualidade que você merece.</p>
+            <div class="cta-btn-inner">
+                <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+            </div>
+        </a>
+
+        <!-- ====== ÁREA DO BARBEIRO ====== -->
+        <section class="barber-admin-section">
+            <div class="barber-admin-box">
+                <div class="barber-admin-icon"><i class="fas fa-scissors"></i></div>
+                <div class="barber-admin-text">
+                    <span class="barber-admin-title">Área do Barbeiro</span>
+                    <span class="barber-admin-sub">Confirmar e gerenciar agendamentos</span>
+                </div>
+                <a href="./admin.html" class="barber-admin-btn" target="_blank" rel="noopener">
+                    <i class="fas fa-lock"></i> Entrar
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-icons">
+                <a href="https://www.instagram.com/barbeariabonfa/" aria-label="Instagram" target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://maps.app.goo.gl/GGZDU1uezWRV2D5B9" aria-label="Localização" target="_blank" rel="noopener">
+                    <i class="fas fa-map-marker-alt"></i>
+                </a>
+                <a href="https://wa.me/5532998033153" aria-label="WhatsApp" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+            <p>© 2026 Barbearia Bonfá. Todos os direitos reservados.</p>
+        </footer>
+
     </main>
+
+    <!-- ====== MODAL DE CONFIRMAÇÃO (fora do card para não ser cortado pelo overflow:hidden) ====== -->
+    <div class="modal-overlay" id="confirmModal" onclick="fecharModal(event)">
+        <div class="modal-box">
+            <div class="modal-handle"></div>
+            <p class="modal-title">✂️ Confirmar Agendamento</p>
+            <div class="modal-row">
+                <span class="label">Cliente</span>
+                <span class="value" id="modalNome">—</span>
+            </div>
+            <div class="modal-row">
+                <span class="label">Serviço</span>
+                <span class="value" id="modalServico">—</span>
+            </div>
+            <div class="modal-row">
+                <span class="label">Data</span>
+                <span class="value" id="modalData">—</span>
+            </div>
+            <div class="modal-row">
+                <span class="label">Horário</span>
+                <span class="value" id="modalHora">—</span>
+            </div>
+            <div class="modal-price-row">
+                <span class="label">Total Estimado</span>
+                <span class="price" id="modalPreco">—</span>
+            </div>
+            <!-- Aviso: aguarda confirmação do barbeiro -->
+            <div class="modal-notice">
+                <i class="fas fa-circle-info"></i>
+                O horário ficará reservado após <strong>confirmação do barbeiro</strong> via WhatsApp.
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-modal-confirm" id="btnModalConfirm" onclick="confirmarAgendamento()">
+                    <i class="fab fa-whatsapp"></i> Solicitar
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="./js/script.js"></script>
 </body>
 </html>
+

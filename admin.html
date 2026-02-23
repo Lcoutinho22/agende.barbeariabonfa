@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Barbearia Bonfá</title>
+    <link rel="icon" type="image/jpeg" href="./image/logo.jpeg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <script type="module" src="./js/firebase-init.js"></script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+      :root {
+        --gold: #c9a84c; --gold-l: #e8c97a;
+        --bg: #0f0f0f; --card: #1a1a1a; --card2: #242424;
+        --text: #f0f0f0; --sub: #999; --border: rgba(255,255,255,0.1);
+        --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+      }
+      body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px 12px 40px; }
+
+      /* Login */
+      #loginScreen {
+        display: flex; align-items: center; justify-content: center;
+        min-height: 100vh; padding: 20px;
+      }
+      .login-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+        padding: 40px 28px; width: 100%; max-width: 360px; text-align: center;
+      }
+      .login-card .logo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); margin: 0 auto 20px; display: block; object-fit: cover; }
+      .login-card h1 { font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; color: var(--text); }
+      .login-card p  { font-size: 0.8rem; color: var(--sub); margin-bottom: 28px; }
+      .login-card input {
+        width: 100%; padding: 14px 16px; border-radius: 12px;
+        border: 2px solid var(--border); background: var(--card2);
+        color: var(--text); font-size: 1rem; outline: none; margin-bottom: 14px;
+        letter-spacing: 3px; text-align: center;
+        -webkit-appearance: none;
+      }
+      .login-card input:focus { border-color: var(--gold); }
+      .login-card button {
+        width: 100%; padding: 15px; border: none; border-radius: 12px;
+        background: var(--gold); color: #000; font-weight: 900;
+        font-size: 0.95rem; cursor: pointer; letter-spacing: 0.5px;
+        text-transform: uppercase; transition: background 0.2s;
+      }
+      .login-card button:hover { background: var(--gold-l); }
+      .login-err { color: var(--red); font-size: 0.8rem; margin-top: 10px; min-height: 16px; }
+
+      /* Admin panel */
+      #adminPanel { display: none; max-width: 600px; margin: 0 auto; }
+
+      .admin-header {
+        display: flex; align-items: center; gap: 14px;
+        background: var(--card); border-radius: 18px; padding: 18px 20px;
+        border: 1px solid var(--border); margin-bottom: 24px;
+      }
+      .admin-header img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+      .admin-header .title { font-size: 1rem; font-weight: 900; letter-spacing: 1px; }
+      .admin-header .sub   { font-size: 0.72rem; color: var(--gold); font-weight: 700; }
+      .admin-header .logout {
+        margin-left: auto; background: transparent; border: 1px solid var(--border);
+        color: var(--sub); padding: 8px 14px; border-radius: 8px; cursor: pointer;
+        font-size: 0.75rem; font-weight: 700; transition: all 0.2s;
+      }
+      .admin-header .logout:hover { background: var(--red); color: #fff; border-color: transparent; }
+
+      /* Data picker */
+      .date-row {
+        display: flex; gap: 10px; align-items: flex-end; margin-bottom: 20px;
+      }
+      .date-row label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--sub); font-weight: 700; display: block; margin-bottom: 6px; }
+      .date-row input[type=date] {
+        flex: 1; padding: 13px 16px; border-radius: 12px;
+        border: 2px solid var(--border); background: var(--card);
+        color: var(--text); font-size: 0.95rem; outline: none;
+        -webkit-appearance: none;
+        color-scheme: dark;
+      }
+      .date-row input:focus { border-color: var(--gold); }
+      .date-row button {
+        padding: 13px 20px; border: none; border-radius: 12px;
+        background: var(--gold); color: #000; font-weight: 900;
+        cursor: pointer; font-size: 0.85rem; white-space: nowrap;
+        text-transform: uppercase; letter-spacing: 0.5px;
+      }
+
+      /* Legenda */
+      .legend {
+        display: flex; gap: 16px; flex-wrap: wrap;
+        font-size: 0.7rem; font-weight: 700; color: var(--sub);
+        text-transform: uppercase; letter-spacing: 0.4px;
+        margin-bottom: 18px;
+      }
+      .legend span { display: flex; align-items: center; gap: 6px; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+      .dot-p { background: var(--yellow); }
+      .dot-c { background: var(--red); }
+
+      /* Cards de agendamentos */
+      #bookingList {}
+      .no-bookings {
+        text-align: center; padding: 40px 20px;
+        font-size: 0.9rem; color: var(--sub); font-weight: 600;
+        background: var(--card); border-radius: 18px; border: 1px solid var(--border);
+      }
+      .no-bookings i { font-size: 2rem; margin-bottom: 12px; display: block; opacity: 0.4; }
+
+      .booking-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+        padding: 18px 18px 14px; margin-bottom: 12px;
+        transition: all 0.2s;
+        animation: cardIn 0.3s ease both;
+        border-left: 4px solid var(--border);
+      }
+      .booking-card.is-pending  { border-left-color: var(--yellow); }
+      .booking-card.is-confirmed{ border-left-color: var(--red); }
+
+      @keyframes cardIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+      .bk-top {
+        display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px;
+      }
+      .bk-time {
+        font-size: 1.6rem; font-weight: 900; color: var(--text); line-height: 1;
+      }
+      .bk-status {
+        font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+        padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+      }
+      .bk-status.pending  { background: rgba(245,158,11,.15); color: var(--yellow); border: 1px solid rgba(245,158,11,.3); }
+      .bk-status.confirmed{ background: rgba(239,68,68,.15);  color: var(--red);    border: 1px solid rgba(239,68,68,.3); }
+
+      .bk-info { display: flex; flex-direction: column; gap: 4px; }
+      .bk-name    { font-size: 0.95rem; font-weight: 800; color: var(--text); }
+      .bk-service { font-size: 0.8rem;  font-weight: 700; color: var(--sub); }
+      .bk-price   { font-size: 0.75rem; font-weight: 700; color: var(--gold); }
+
+      .bk-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+      .btn-confirm, .btn-reject {
+        padding: 11px; border: none; border-radius: 10px;
+        font-weight: 900; font-size: 0.75rem; cursor: pointer;
+        text-transform: uppercase; letter-spacing: 0.4px;
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        transition: all 0.2s;
+      }
+      .btn-confirm {
+        background: var(--green); color: #fff;
+        box-shadow: 0 4px 14px rgba(34,197,94,0.3);
+      }
+      .btn-confirm:hover { background: #16a34a; }
+      .btn-reject  {
+        background: transparent; border: 1px solid var(--border); color: var(--sub);
+      }
+      .btn-reject:hover  { background: var(--red); color: #fff; border-color: transparent; }
+
+      .btn-confirmed-label {
+        grid-column: 1 / -1; padding: 11px; border-radius: 10px;
+        font-weight: 800; font-size: 0.75rem; text-align: center;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        background: rgba(239,68,68,.12); color: var(--red); border: 1px solid rgba(239,68,68,.2);
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+      }
+
+      .loading-msg {
+        text-align: center; padding: 30px; color: var(--sub);
+        font-size: 0.85rem; font-weight: 700;
+      }
+      .loading-msg i { color: var(--gold); }
+
+      /* Toast */
+      .a-toast {
+        position: fixed; bottom: 20px; left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--card); border: 1px solid var(--border);
+        color: var(--text); padding: 12px 22px; border-radius: 50px;
+        font-size: 0.82rem; font-weight: 800; white-space: nowrap;
+        z-index: 999; opacity: 0; pointer-events: none;
+        transition: all 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      }
+      .a-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+      .a-toast.ok   { background: var(--green); color: #fff; border: none; }
+      .a-toast.err  { background: var(--red);   color: #fff; border: none; }
+    </style>
+</head>
+<body>
+
+<!-- ====== TELA DE LOGIN ====== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <img src="./image/logo.jpeg" class="logo" alt="Logo" />
+    <h1>BONFÁ ADMIN</h1>
+    <p>Painel de Confirmações</p>
+    <input type="password" id="pwdInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button onclick="doLogin()"><i class="fas fa-unlock-alt"></i> Entrar</button>
+    <p class="login-err" id="loginErr"></p>
+  </div>
+</div>
+
+<!-- ====== PAINEL ADMIN ====== -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <img src="./image/logo.jpeg" alt="Logo" />
+    <div>
+      <div class="title">BONFÁ ADMIN</div>
+      <div class="sub">Gerenciar Agendamentos</div>
+    </div>
+    <button class="logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+  </div>
+
+  <div class="date-row">
+    <div style="flex:1">
+      <label for="adminDate">Data</label>
+      <input type="date" id="adminDate" />
+    </div>
+    <button onclick="loadBookings()"><i class="fas fa-search"></i> Ver</button>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot dot-p"></span> Aguardando confirmação</span>
+    <span><span class="dot dot-c"></span> Confirmado / Bloqueado</span>
+  </div>
+
+  <div id="bookingList">
+    <div class="no-bookings">
+      <i class="fas fa-calendar-xmark"></i>
+      Escolha uma data para ver os agendamentos.
+    </div>
+  </div>
+</div>
+
+<div class="a-toast" id="aToast"></div>
+
+<script>
+/* ─────── SENHA DO ADMIN ─────── */
+const ADMIN_PWD = 'bonfa2026';  // ← Mude aqui a senha do barbeiro
+
+/* ─────── LOGIN ─────── */
+function doLogin() {
+  const v = document.getElementById('pwdInput').value;
+  if (v === ADMIN_PWD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display  = 'block';
+    sessionStorage.setItem('bonfa-admin', '1');
+    setTodayDate();
+    loadBookings();
+  } else {
+    document.getElementById('loginErr').textContent = 'Senha incorreta.';
+    document.getElementById('pwdInput').value = '';
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('bonfa-admin');
+  location.reload();
+}
+// Auto-login se sessão válida
+if (sessionStorage.getItem('bonfa-admin') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display  = 'block';
+  setTodayDate();
+}
+
+function setTodayDate() {
+  const n  = new Date();
+  const dt = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  document.getElementById('adminDate').value = dt;
+}
+
+/* ─────── CARREGAR AGENDAMENTOS ─────── */
+async function loadBookings() {
+  const dateKey = document.getElementById('adminDate').value;
+  if (!dateKey) return;
+
+  const list = document.getElementById('bookingList');
+  list.innerHTML = `<div class="loading-msg"><i class="fas fa-circle-notch fa-spin"></i> Carregando…</div>`;
+
+  // Aguarda o Firebase estar pronto (módulo ES6 async)
+  let tries = 0;
+  while (typeof window.firebaseGetAll !== 'function' && tries < 20) {
+    await new Promise(r => setTimeout(r, 300));
+    tries++;
+  }
+
+  if (typeof window.firebaseGetAll !== 'function') {
+    list.innerHTML = `<div class="no-bookings"><i class="fas fa-wifi-slash"></i>Firebase não conectou. Verifique a conexão.</div>`;
+    return;
+  }
+
+  const data = await window.firebaseGetAll(dateKey);
+  renderBookings(dateKey, data);
+}
+
+function renderBookings(dateKey, data) {
+  const list = document.getElementById('bookingList');
+  const entries = Object.entries(data).sort((a,b) => a[0].localeCompare(b[0]));
+
+  if (entries.length === 0) {
+    list.innerHTML = `<div class="no-bookings"><i class="fas fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
+    return;
+  }
+
+  list.innerHTML = '';
+  entries.forEach(([time, info], i) => {
+    const isPending   = info.status === 'pending';
+    const isConfirmed = info.status === 'confirmed';
+    const card = document.createElement('div');
+    card.className = `booking-card ${isPending ? 'is-pending' : 'is-confirmed'}`;
+    card.style.animationDelay = `${i * 60}ms`;
+    card.id = `card-${time.replace(':','')}`;
+
+    card.innerHTML = `
+      <div class="bk-top">
+        <div class="bk-time">${time}</div>
+        <span class="bk-status ${isPending ? 'pending' : 'confirmed'}">
+          ${isPending ? '⏳ Aguardando' : '✅ Confirmado'}
+        </span>
+      </div>
+      <div class="bk-info">
+        <div class="bk-name"><i class="fas fa-user" style="opacity:.5;margin-right:6px;font-size:.8rem"></i>${info.name || '—'}</div>
+        <div class="bk-service"><i class="fas fa-scissors" style="opacity:.5;margin-right:6px;font-size:.75rem"></i>${info.service || '—'}</div>
+        ${info.price ? `<div class="bk-price"><i class="fas fa-tag" style="margin-right:5px;font-size:.7rem"></i>R$ ${info.price},00</div>` : ''}
+      </div>
+      <div class="bk-actions">
+        ${isPending
+          ? `<button class="btn-confirm" onclick="confirmBooking('${dateKey}','${time}', this)"><i class="fas fa-check"></i> Confirmar</button>
+             <button class="btn-reject"  onclick="rejectBooking('${dateKey}','${time}', this)"><i class="fas fa-times"></i> Recusar</button>`
+          : `<div class="btn-confirmed-label"><i class="fas fa-lock"></i> Horário Bloqueado</div>
+             <button class="btn-reject" onclick="rejectBooking('${dateKey}','${time}', this)" style="grid-column:1/-1"><i class="fas fa-trash"></i> Cancelar Agendamento</button>`
+        }
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+async function confirmBooking(dateKey, time, btn) {
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+  const ok = await window.firebaseConfirm(dateKey, time);
+  if (ok) {
+    aToast('✅ Confirmado! Horário bloqueado.', 'ok');
+    loadBookings();
+  } else {
+    aToast('Erro ao confirmar.', 'err');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-check"></i> Confirmar';
+  }
+}
+
+async function rejectBooking(dateKey, time, btn) {
+  if (!confirm(`Cancelar o agendamento das ${time}?`)) return;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+  const ok = await window.firebaseReject(dateKey, time);
+  if (ok) {
+    aToast('🗑️ Agendamento removido.', 'ok');
+    document.getElementById(`card-${time.replace(':','')}`)?.remove();
+    if (!document.querySelector('.booking-card')) {
+      document.getElementById('bookingList').innerHTML =
+        `<div class="no-bookings"><i class="fas fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
+    }
+  } else {
+    aToast('Erro ao remover.', 'err');
+  }
+}
+
+function aToast(msg, type='') {
+  const t = document.getElementById('aToast');
+  t.textContent = msg; t.className = `a-toast ${type}`;
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
