@@ -43,12 +43,17 @@ body.dark-theme {
 }
 
 /* --- RESET & GERAL --- */
+/* --- RESET & GERAL --- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Aplica a fonte corretamente sem quebrar os ícones */
+body, input, button, select, textarea {
+  font-family: "Montserrat", sans-serif;
 }
 
 html {
@@ -1130,6 +1135,39 @@ img, video {
 @media (max-width: 360px) {
   .service-grid { grid-template-columns: 1fr; }
   .time-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==========================================
+   CORREÇÃO PARA iPhones / iOS (Safari)
+   ========================================== */
+@supports (-webkit-touch-callout: none) {
+  /* Impede que imagens ultrapassem a tela no Safari iOS */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Galeria: limita itens para não exceder a tela */
+  .gallery-track {
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-item {
+    min-width: min(145px, 38vw);
+    height: min(195px, 50vw);
+    max-width: 48vw;
+  }
+
+  /* Foto de perfil: tamanho controlado */
+  .profile-img {
+    width: min(120px, 28vw);
+    height: min(120px, 28vw);
+  }
+
+  /* Vídeos verticais: não ultrapassam a largura disponível */
+  .vertical-video {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* ==========================================

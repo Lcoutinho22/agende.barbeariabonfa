@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin — Barbearia Bonfá</title>
     <link rel="icon" type="image/jpeg" href="./image/logo.jpeg" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" />
     <script type="module" src="./js/firebase-init.js"></script>
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
@@ -192,7 +192,7 @@
     <h1>BONFÁ ADMIN</h1>
     <p>Painel de Confirmações</p>
     <input type="password" id="pwdInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-    <button onclick="doLogin()"><i class="fas fa-unlock-alt"></i> Entrar</button>
+    <button onclick="doLogin()"><i class="fa-solid fa-unlock"></i> Entrar</button>
     <p class="login-err" id="loginErr"></p>
   </div>
 </div>
@@ -205,7 +205,7 @@
       <div class="title">BONFÁ ADMIN</div>
       <div class="sub">Gerenciar Agendamentos</div>
     </div>
-    <button class="logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    <button class="logout" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
   </div>
 
   <div class="date-row">
@@ -213,7 +213,7 @@
       <label for="adminDate">Data</label>
       <input type="date" id="adminDate" />
     </div>
-    <button onclick="loadBookings()"><i class="fas fa-search"></i> Ver</button>
+    <button onclick="loadBookings()"><i class="fa-solid fa-magnifying-glass"></i> Ver</button>
   </div>
 
   <div class="legend">
@@ -223,7 +223,7 @@
 
   <div id="bookingList">
     <div class="no-bookings">
-      <i class="fas fa-calendar-xmark"></i>
+      <i class="fa-solid fa-calendar-xmark"></i>
       Escolha uma data para ver os agendamentos.
     </div>
   </div>
@@ -272,7 +272,7 @@ async function loadBookings() {
   if (!dateKey) return;
 
   const list = document.getElementById('bookingList');
-  list.innerHTML = `<div class="loading-msg"><i class="fas fa-circle-notch fa-spin"></i> Carregando…</div>`;
+  list.innerHTML = `<div class="loading-msg"><i class="fa-solid fa-circle-notch fa-spin"></i> Carregando…</div>`;
 
   // Aguarda o Firebase estar pronto (módulo ES6 async)
   let tries = 0;
@@ -282,7 +282,7 @@ async function loadBookings() {
   }
 
   if (typeof window.firebaseGetAll !== 'function') {
-    list.innerHTML = `<div class="no-bookings"><i class="fas fa-wifi-slash"></i>Firebase não conectou. Verifique a conexão.</div>`;
+    list.innerHTML = `<div class="no-bookings"><i class="fa-solid fa-wifi-slash"></i>Firebase não conectou. Verifique a conexão.</div>`;
     return;
   }
 
@@ -295,7 +295,7 @@ function renderBookings(dateKey, data) {
   const entries = Object.entries(data).sort((a,b) => a[0].localeCompare(b[0]));
 
   if (entries.length === 0) {
-    list.innerHTML = `<div class="no-bookings"><i class="fas fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
+    list.innerHTML = `<div class="no-bookings"><i class="fa-solid fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
     return;
   }
 
@@ -316,16 +316,16 @@ function renderBookings(dateKey, data) {
         </span>
       </div>
       <div class="bk-info">
-        <div class="bk-name"><i class="fas fa-user" style="opacity:.5;margin-right:6px;font-size:.8rem"></i>${info.name || '—'}</div>
-        <div class="bk-service"><i class="fas fa-scissors" style="opacity:.5;margin-right:6px;font-size:.75rem"></i>${info.service || '—'}</div>
-        ${info.price ? `<div class="bk-price"><i class="fas fa-tag" style="margin-right:5px;font-size:.7rem"></i>R$ ${info.price},00</div>` : ''}
+        <div class="bk-name"><i class="fa-solid fa-user" style="opacity:.5;margin-right:6px;font-size:.8rem"></i>${info.name || '—'}</div>
+        <div class="bk-service"><i class="fa-solid fa-scissors" style="opacity:.5;margin-right:6px;font-size:.75rem"></i>${info.service || '—'}</div>
+        ${info.price ? `<div class="bk-price"><i class="fa-solid fa-tag" style="margin-right:5px;font-size:.7rem"></i>R$ ${info.price},00</div>` : ''}
       </div>
       <div class="bk-actions">
         ${isPending
-          ? `<button class="btn-confirm" onclick="confirmBooking('${dateKey}','${time}', this)"><i class="fas fa-check"></i> Confirmar</button>
-             <button class="btn-reject"  onclick="rejectBooking('${dateKey}','${time}', this)"><i class="fas fa-times"></i> Recusar</button>`
-          : `<div class="btn-confirmed-label"><i class="fas fa-lock"></i> Horário Bloqueado</div>
-             <button class="btn-reject" onclick="rejectBooking('${dateKey}','${time}', this)" style="grid-column:1/-1"><i class="fas fa-trash"></i> Cancelar Agendamento</button>`
+          ? `<button class="btn-confirm" onclick="confirmBooking('${dateKey}','${time}', this)"><i class="fa-solid fa-check"></i> Confirmar</button>
+             <button class="btn-reject"  onclick="rejectBooking('${dateKey}','${time}', this)"><i class="fa-solid fa-xmark"></i> Recusar</button>`
+          : `<div class="btn-confirmed-label"><i class="fa-solid fa-lock"></i> Horário Bloqueado</div>
+             <button class="btn-reject" onclick="rejectBooking('${dateKey}','${time}', this)" style="grid-column:1/-1"><i class="fa-solid fa-trash"></i> Cancelar Agendamento</button>`
         }
       </div>
     `;
@@ -335,7 +335,7 @@ function renderBookings(dateKey, data) {
 
 async function confirmBooking(dateKey, time, btn) {
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
   const ok = await window.firebaseConfirm(dateKey, time);
   if (ok) {
     aToast('✅ Confirmado! Horário bloqueado.', 'ok');
@@ -343,21 +343,21 @@ async function confirmBooking(dateKey, time, btn) {
   } else {
     aToast('Erro ao confirmar.', 'err');
     btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-check"></i> Confirmar';
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar';
   }
 }
 
 async function rejectBooking(dateKey, time, btn) {
   if (!confirm(`Cancelar o agendamento das ${time}?`)) return;
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
   const ok = await window.firebaseReject(dateKey, time);
   if (ok) {
     aToast('🗑️ Agendamento removido.', 'ok');
     document.getElementById(`card-${time.replace(':','')}`)?.remove();
     if (!document.querySelector('.booking-card')) {
       document.getElementById('bookingList').innerHTML =
-        `<div class="no-bookings"><i class="fas fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
+        `<div class="no-bookings"><i class="fa-solid fa-calendar-check"></i>Nenhum agendamento para esta data.</div>`;
     }
   } else {
     aToast('Erro ao remover.', 'err');
